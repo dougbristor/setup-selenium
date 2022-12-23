@@ -71,7 +71,9 @@ Then create a file called scrape **[testairbnb.py](https://raw.githubusercontent
     driver.get('https://www.airbnb.com')
     
     try:
-        listings = WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.XPATH, '//div[contains(@aria-labelledby,"title") and @role="group"]')))
+        listings = WebDriverWait(driver, 10).until( EC.visibility_of_all_elements_located(
+            (By.XPATH, '//div[contains(@aria-labelledby,"title") and @role="group"]')
+            ))
     
         for listing in listings:	
            link = listing.find_element(By.CSS_SELECTOR,'a').get_attribute('href')
