@@ -51,12 +51,13 @@ I hope this helps set you on your way to a successful journey of web scraping wi
 
 You need to install python
 https://www.python.org/downloads
-and download ChromeDriver from this link: https://chromedriver.chromium.org/downloads
 
-Next, you'll need to install Selenium. You can do this by opening up a terminal window and typing the following command:
+Next, you'll need to install Selenium. You can do this by opening up a terminal window and typing the following commands:
 
 `pip install selenium` 
+`pip install chromedriver-autoinstaller`
 
+ChromeDriver-autoinstaller should download the latest chromedriver and set the path for you  (https://chromedriver.chromium.org/downloads)
 
 Then create a file called scrape **[testairbnb.py](https://raw.githubusercontent.com/dougbristor/setup-selenium/main/testairbnb.py)**
 
@@ -66,8 +67,14 @@ Then create a file called scrape **[testairbnb.py](https://raw.githubusercontent
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support import expected_conditions as EC
     
-    service = Service('chromedriver')      # /path/to/chromedriver
-    driver = webdriver.Chrome(service=service, service_args=['--verbose'])
+    import chromedriver_autoinstaller    
+    
+    # service = Service('chromedriver')      # /path/to/chromedriver
+    chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
+                                          # and if it doesn't exist, download it automatically,
+                                          # then add chromedriver to path
+
+    driver = webdriver.Chrome()             # service=service, service_args=['--verbose'])
     driver.get('https://www.airbnb.com')
     
     try:
