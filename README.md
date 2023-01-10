@@ -55,6 +55,7 @@ https://www.python.org/downloads
 Next, you'll need to install Selenium. You can do this by opening up a terminal window and typing the following commands:
 
 `pip install selenium` 
+
 `pip install chromedriver-autoinstaller`
 
 ChromeDriver-autoinstaller should download the latest chromedriver and set the path for you  (https://chromedriver.chromium.org/downloads)
