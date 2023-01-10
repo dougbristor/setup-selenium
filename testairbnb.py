@@ -1,24 +1,30 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.chrome.service import Service
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+    
+    import chromedriver_autoinstaller    
+    
+    # service = Service('chromedriver')      # /path/to/chromedriver
+    chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
+                                          # and if it doesn't exist, download it automatically,
+                                          # then add chromedriver to path
 
-service = Service('chromedriver')      # /path/to/chromedriver
-driver = webdriver.Chrome(service=service, service_args=['--verbose'])
-driver.get('https://www.airbnb.com')
-
-try:
-    listings = WebDriverWait(driver, 10).until(EC.visibility_of_all_elements_located((By.XPATH, '//div[contains(@aria-labelledby,"title") and @role="group"]')))
-
-    for listing in listings:	
-       link = listing.find_element(By.CSS_SELECTOR,'a').get_attribute('href')
-       text = listing.find_element(By.XPATH,'.//div[contains(@id,"title")]').text 
-       print(f'{text}: {link.split("?")[0]}')
-
-finally:
-    driver.quit()
-
+    driver = webdriver.Chrome()             # service=service, service_args=['--verbose'])
+    driver.get('https://www.airbnb.com')
+    
+    try:
+        listings = WebDriverWait(driver, 10).until( EC.visibility_of_all_elements_located(
+            (By.XPATH, '//div[contains(@aria-labelledby,"title") and @role="group"]')
+            ))
+    
+        for listing in listings:	
+           link = listing.find_element(By.CSS_SELECTOR,'a').get_attribute('href')
+           text = listing.find_element(By.XPATH,'.//div[contains(@id,"title")]').text 
+           print(f'{text}: {link.split("?")[0]}')
+    
+    finally:
+        driver.quit()
 
 
 """
